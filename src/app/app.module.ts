@@ -5,11 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { ViewModule } from './view/view.module';
 import { Routes, RouterModule } from '@angular/router';
 import { ParentComponent } from './view/parent/parent.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ChatComponent } from './view/chat/chat.component';
+import { UsersListComponent } from './view/users-list/users-list.component';
 
 const appRoutes: Routes = [
   {
@@ -22,7 +23,7 @@ const appRoutes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'view',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   { path: '**', component: PageNotFoundComponent }
@@ -33,12 +34,13 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     PageNotFoundComponent,
-
+    ParentComponent, 
+    ChatComponent, 
+    UsersListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ViewModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only

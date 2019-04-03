@@ -1,6 +1,6 @@
 Please enter the login credentials:
 <div>
-  <form [formGroup]="fb">
+  <form [formGroup]="loginFormGroup">
     User Name:
     <input type="text" formControlName="userName">
     Password :
@@ -8,7 +8,7 @@ Please enter the login credentials:
   </form>
 </div>
 
-<button (click)="login()" [disabled]="!fb.valid">Login</button>
+<button (click)="login()" [disabled]="!loginFormGroup.valid">Login</button>
 <div>Not a registered User?
   <button (click)="signUp()">Sign Up</button>
 </div>

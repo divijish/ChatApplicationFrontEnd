@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormBuilder } from '@angular/forms';
+import { FormControl, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../services/login.service';
+import { Response } from 'src/model/Response';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,22 +16,33 @@ export class LoginComponent implements OnInit {
   userName: FormControl;
   password: FormControl;
   loginFormGroup = this.fb.group({
-    userName: new FormControl(''),
-    password: new FormControl('')
+    'userName': new FormControl('', Validators.required),
+    'password': new FormControl('', Validators.required)
 
   });
 
 
-  constructor(private fb: FormBuilder, private loginService: LoginService) {
+  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router) {
 
 
 
   }
 
   login(): void {
-    this.loginService.signInUser(this.loginFormGroup.get('userName').value, this.loginFormGroup.get('password').value).subscribe((response) => {
-      console.log(response);
-    });
+
+    let loginResponse: Response;
+
+    this.loginService.signInUser(this.loginFormGroup.controls['userName'].value,
+      this.loginFormGroup.controls['password'].value).subscribe((response) => {
+        loginResponse = response;
+        console.log(loginResponse);
+      }, (error) => {
+        console.log(error)
+      }, () => {
+        if (loginResponse.status == 'SUCCESS') {
+          this.router.navigateByUrl('view');
+        } else { alert(loginResponse.message) }
+      });
   }
 
   ngOnInit() {
