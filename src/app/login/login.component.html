@@ -1,3 +1,14 @@
-<p>
-  login works!
-</p>
+Please enter the login credentials:
+<div>
+  <form [formGroup]="fb">
+    User Name:
+    <input type="text" formControlName="userName">
+    Password :
+    <input type="password" formControlName="password">
+  </form>
+</div>
+
+<button (click)="login()" [disabled]="!fb.valid">Login</button>
+<div>Not a registered User?
+  <button (click)="signUp()">Sign Up</button>
+</div>
