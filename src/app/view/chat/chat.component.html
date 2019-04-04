@@ -5,16 +5,16 @@
         <i class="fa fa-search"></i>
       </div>
       <ul class="list">
-        <li class="clearfix">
-          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" />
+        <li class="clearfix" *ngFor="let user of onlineUsers">
+          <img src="{{user.profilePicUrl}}" alt="avatar" />
           <div class="about">
-            <div class="name">Vincent Porter</div>
+            <div class="name">{{user.userName}}</div>
             <div class="status">
-              <i class="fa fa-circle online"></i> online
+              <i class="fa fa-circle online"></i> {{user.onlineStatus?"online":"offline"}}
             </div>
           </div>
         </li>
-        
+        <!--
         <li class="clearfix">
           <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_02.jpg" alt="avatar" />
           <div class="about">
@@ -23,8 +23,8 @@
               <i class="fa fa-circle offline"></i> left 7 mins ago
             </div>
           </div>
-        </li>
-        
+        </li>-->
+        <!--
         <li class="clearfix">
           <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_03.jpg" alt="avatar" />
           <div class="about">
@@ -104,6 +104,8 @@
             </div>
           </div>
         </li>
+
+      -->
       </ul>
     </div>
     
@@ -112,7 +114,7 @@
         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" />
         
         <div class="chat-about">
-          <div class="chat-with">Chat with Vincent Porter</div>
+          <div class="chat-with">Chat with {{loginService.userName}}</div>
           <div class="chat-num-messages">already 1 902 messages</div>
         </div>
         <i class="fa fa-star"></i>
