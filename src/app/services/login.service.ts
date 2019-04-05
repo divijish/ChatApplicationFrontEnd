@@ -10,35 +10,41 @@ import { Router } from '@angular/router';
 export class LoginService {
 
   public userName: string;
+  public friendUser: string;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+    this.userName = null;
+    this.friendUser = null;
+  }
 
-  signInUser(userName: string, password: string): Observable<any> {
-    return this.http.post<any>(`${environment.serverUrl}/login`, { "userName": userName, "password": password }, { responseType: "json" });
+  signInUser(userName: string, password: string) {
+
+    let loggedUserKey = "loggedUser";
+    let friendUserKey = "friendUser";
+
+    if (userName === "thisuser" && password === "thisuser") {
+      sessionStorage.setItem(loggedUserKey, "thisuser");
+      sessionStorage.setItem(friendUserKey, "thatuser");
+      this.router.navigateByUrl('view');
+    } else if (userName === "thatuser" && password === "thatuser") {
+      sessionStorage.setItem(loggedUserKey, "thatuser");
+      sessionStorage.setItem(friendUserKey, "thisuser");
+      this.router.navigateByUrl('view');
+    }
+
   }
 
   getLoggedUser() {
 
     let loggedUserResponse: Response;
 
-   this.http.get<Response>(`${environment.serverUrl}/loggeduser`, { responseType: "json" }).subscribe(
-      (response) => {
 
-        loggedUserResponse = response;
+    this.userName = sessionStorage
+      .getItem("loggedUser");
+    this.friendUser = sessionStorage.getItem("friendUser");
 
-      }, (error) => {
-        console.log(error);
-        this.router.navigateByUrl('logout');
-      }, () => {
-        if (loggedUserResponse.status === 'FAILED') {
-          this.router.navigateByUrl('logout');
-        }
+    console.log("logged user: " + this.userName);
+    console.log("friend User: " + this.friendUser);
 
-      }
-
-      
-
-
-    );
   }
 }
