@@ -9,4 +9,11 @@ describe('LoginService', () => {
     const service: LoginService = TestBed.get(LoginService);
     expect(service).toBeTruthy();
   });
+
+  it('should sign in the thisuser', ()=>{
+    const service: LoginService = TestBed.get(LoginService);
+    service.signInUser('thisuser', 'thisuser')
+    expect(sessionStorage.getItem('loggedUser')).toBe('thisuser');
+    expect(sessionStorage.getItem('friendUser')).toBe('thatuser');
+  })
 });
